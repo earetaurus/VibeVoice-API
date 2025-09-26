@@ -88,6 +88,7 @@ Set `"stream_format": "sse"` in the request body to receive a stream of SSE even
 ## Voice Mapping
 
 You can define stable, human-friendly voice names via a YAML file that is auto-loaded on each request.
+- Voice YAML mapping: You can use YAML to manage aliases or automatically scan multiple folders (see next section).
 
 **Search order (first found):**
 1. Path from `VIBEVOICE_VOICE_MAP` (relative to repo root or absolute)  

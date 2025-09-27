@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "vibevoice"
+name = "vibevoice-api"
 version = "0.0.1"
 authors = [
   { name="vibevoice team", email="vibepod@microsoft.com" },
@@ -19,7 +19,8 @@ classifiers = [
 dependencies = [
     "torch",
     "accelerate==1.6.0",
-    "transformers==4.51.3", # we develop this project on transformers==4.51.3, later version may not be compatible
+    "transformers==4.51.3",
+    "vibevoice @ git+https://github.com/vibevoice-community/VibeVoice",
     "datasets==3.5.0", # avoid issues with torchcodec
     "peft", # for finetuning
     "llvmlite>=0.40.0",
@@ -38,8 +39,8 @@ dependencies = [
 
 
 [project.urls]
-"Homepage" = "https://github.com/microsoft/VibeVoice"
-"Bug Tracker" = "https://github.com/microsoft/VibeVoice/issues"
+"Homepage" = "https://github.com/vibevoice-community/VibeVoice-API"
+"Bug Tracker" = "https://github.com/vibevoice-community/VibeVoice-API/issues"
 
 [tool.setuptools.packages.find]
 where = ["."]

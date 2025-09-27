@@ -1,6 +1,6 @@
-# VibeVoice OpenAI-Compatible TTS API
+# VibeVoice API
 
-> This is a VibeVoice OpenAI-compatible TTS API.
+> This is an OpenAI-compatible API for VibeVoice.
 
 ## Community
 

@@ -9,7 +9,7 @@
 ## Installation
 
 ```bash
-git clone https://github.com/vibevoice-community/VibeVoice.git
+git clone https://github.com/vibevoice-community/VibeVoice-API
 cd VibeVoice/
 
 uv pip install -e .

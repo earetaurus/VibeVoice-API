@@ -424,6 +424,7 @@ def synthesize(
             tls_clear = getattr(state.model.model, 'clear_thread_local_noise_scheduler', None)
             tls_get = getattr(state.model.model, 'get_thread_local_noise_scheduler', None)
             try:
+                from vibevoice_api import observability as obs
                 if callable(tls_get) and callable(tls_set):
                     base_sched = tls_get()
                     tls_set(deepcopy(base_sched))

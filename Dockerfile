@@ -15,7 +15,7 @@ WORKDIR /app
 COPY . . 
 
 # Install dependencies using UV
-RUN uv venv --install 3.11
+RUN uv venv --python 3.11
 RUN uv pip install -e .
 
 # Expose application port (default for uvicorn is 8000) 

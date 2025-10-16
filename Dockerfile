@@ -12,10 +12,10 @@ RUN uv python install 3.11
 RUN apk add git
 WORKDIR /app
 RUN --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync
+    uv sync --default-index https://download.pytorch.org/whl
 COPY . /app
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked --no-dev
+    uv sync --locked --no-dev --default-index https://download.pytorch.org/whl
 
 # Then, use a final image without uv
 FROM debian:bookworm-slim

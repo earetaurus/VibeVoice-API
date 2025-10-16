@@ -18,6 +18,6 @@ ADD . /app
 
 # Sync the project into a new environment, asserting the lockfile is up to date
 WORKDIR /app
-RUN uv sync --locked
+RUN uv pip install -e .
 # Run the FastAPI application by default
 ENTRYPOINT ["python","-m vibevoice_api.server --model_path vibevoice/VibeVoice-1.5B --port 8000"]

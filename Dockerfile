@@ -3,7 +3,7 @@ FROM pytorch/pytorch:2.1.2-cuda11.8-cudnn8-runtime
 
 # Set the working directory in the container
 WORKDIR /app
-
+RUN apt update && apt install git build-base
 # Install project dependencies
 RUN pip install --upgrade pip && \
     pip install accelerate==1.6.0 transformers==4.51.3 \

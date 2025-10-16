@@ -9,7 +9,7 @@ RUN pip install --upgrade pip && \
     pip install accelerate==1.6.0 transformers==4.51.3 \
     "git+https://github.com/vibevoice-community/VibeVoice" datasets==3.5.0 peft==0.11.1 \
     llvmlite>=0.40.0 numba>=0.57.0 diffusers==0.29.0 \
-    tqdm numpy scipy librosa ml-collections absl-py gradio av aiortc
+    tqdm numpy scipy librosa ml-collections absl-py gradio av aiortc prometheus-client
 
 # Copy the rest of the application code into the container
 COPY . .

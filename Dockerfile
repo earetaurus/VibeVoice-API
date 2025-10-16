@@ -1,4 +1,4 @@
-FROM python:3.11-alpine
+FROM alpine:latest
 
 # Set environment variables 
 ENV PYTHONUNBUFFERED 1 
@@ -14,7 +14,8 @@ WORKDIR /app
 # Copy application files 
 COPY . . 
 
-# Install dependencies using UV 
+# Install dependencies using UV
+RUN uv venv --install 3.11
 RUN uv pip install -e .
 
 # Expose application port (default for uvicorn is 8000) 

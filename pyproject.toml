@@ -17,7 +17,7 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "torch",
+    "torch>=2.6.0",
     "accelerate==1.6.0",
     "transformers==4.51.3",
     "vibevoice @ git+https://github.com/vibevoice-community/VibeVoice",
@@ -44,3 +44,15 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 where = ["."]
+
+[tool.uv.sources]
+# Install PyTorch with CUDA support on Linux/Windows (CUDA doesn't exist for Mac).
+# NOTE: We must explicitly request them as `dependencies` above. These improved
+# versions will not be selected if they're only third-party dependencies.
+torch = [
+  { index = "pytorchcu128"},
+]
+[[tool.uv.index]]
+name = "pytorchcu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true

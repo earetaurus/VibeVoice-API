@@ -10,14 +10,12 @@ ENV UV_PYTHON_INSTALL_DIR=/python
 # Only use the managed Python version
 ENV UV_PYTHON_PREFERENCE=only-managed
 
-# Install Python before the project for caching
-RUN uv python install 3.10
-
 # Copy the project into the image
 ADD . /app
 
 # Sync the project into a new environment, asserting the lockfile is up to date
 WORKDIR /app
-RUN uv pip install -e . --system
+RUN uv venv --python 3.10
+RUN uv pip install -e .
 # Run the FastAPI application by default
 ENTRYPOINT ["python","-m vibevoice_api.server --model_path vibevoice/VibeVoice-1.5B --port 8000"]

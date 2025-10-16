@@ -24,4 +24,4 @@ EXPOSE 8000
 
 # Define the command to run the application
 # The model path 'vibevoice/VibeVoice-7B' is specified as requested.
-CMD ["python", "-m", "vibevoice_api.server", "--model_path", "vibevoice/VibeVoice-7B", "--port", "8000"]
+ENTRYPOINT ["python", "-m", "vibevoice_api.server", "--model_path", "vibevoice/VibeVoice-7B", "--port", "8000"]

@@ -1,9 +1,9 @@
 # Use an official Python runtime as a parent image
-FROM python:3.11-slim
+FROM python:3.11-alpine
 
 # Set the working directory in the container
 WORKDIR /app
-
+RUN apk add git
 # Copy the necessary files for dependency installation
 COPY pyproject.toml ./
 

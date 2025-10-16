@@ -3,15 +3,14 @@ FROM python:3.11-alpine
 
 # Set the working directory in the container
 WORKDIR /app
-RUN apk add git
-# Copy the necessary files for dependency installation
-COPY pyproject.toml ./
+RUN apk add --no-cache git build-base
 
-# Install the project and its dependencies using pip
-# This ensures that dependencies are installed based on pyproject.toml,
-# and respects any build-time requirements for NVIDIA GPU support if specified.
+# Install project dependencies
 RUN pip install --upgrade pip && \
-    pip install .
+    pip install torch==2.1.2 accelerate==1.6.0 transformers==4.51.3 \
+    "git+https://github.com/vibevoice-community/VibeVoice" datasets==3.5.0 peft==0.11.1 \
+    llvmlite>=0.40.0 numba>=0.57.0 diffusers==0.29.0 \
+    tqdm numpy scipy librosa ml-collections absl-py gradio av aiortc
 
 # Copy the rest of the application code into the container
 COPY . .

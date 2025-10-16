@@ -1,7 +1,7 @@
 # An example of using standalone Python builds with multistage images.
 
 # First, build the application in the `/app` directory
-FROM ghcr.io/astral-sh/uv:bookworm-slim AS builder
+FROM ghcr.io/astral-sh/uv:alpine AS builder
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 
 # Configure the Python directory so it is consistent
@@ -15,6 +15,7 @@ ADD . /app
 
 # Sync the project into a new environment, asserting the lockfile is up to date
 WORKDIR /app
+RUN apk add git
 RUN uv venv --python 3.10
 RUN uv pip install -e .
 # Run the FastAPI application by default

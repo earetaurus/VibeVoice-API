@@ -1,43 +1,29 @@
-FROM astral/uv:alpine AS builder
-ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
+# Use an official Python runtime as a parent image
+FROM python:3.11-slim
 
-# Configure the Python directory so it is consistent
-ENV UV_PYTHON_INSTALL_DIR=/python
-
-# Only use the managed Python version
-ENV UV_PYTHON_PREFERENCE=only-managed
-
-# Install Python before the project for caching
-RUN uv python install 3.11
-RUN apk add git
-WORKDIR /app
-RUN --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --default-index https://download.pytorch.org/whl
-COPY . /app
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked --no-dev --default-index https://download.pytorch.org/whl
-
-# Then, use a final image without uv
-FROM debian:bookworm-slim
-
-# Setup a non-root user
-RUN groupadd --system --gid 999 nonroot \
- && useradd --system --gid 999 --uid 999 --create-home nonroot
-
-# Copy the Python version
-COPY --from=builder --chown=python:python /python /python
-
-# Copy the application from the builder
-COPY --from=builder --chown=nonroot:nonroot /app /app
-
-# Place executables in the environment at the front of the path
-ENV PATH="/app/.venv/bin:$PATH"
-
-# Use the non-root user to run our application
-USER nonroot
-
-# Use `/app` as the working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Run the FastAPI application by default
-CMD ["top","-b"]
+# Copy the necessary files for dependency installation
+COPY pyproject.toml ./
+
+# Install the project and its dependencies using pip
+# This ensures that dependencies are installed based on pyproject.toml,
+# and respects any build-time requirements for NVIDIA GPU support if specified.
+RUN pip install --upgrade pip && \
+    pip install .
+
+# Copy the rest of the application code into the container
+COPY . .
+
+# Expose the port the application listens on
+EXPOSE 8000
+
+# Set environment variables if needed for CUDA/GPU, e.g., for PyTorch.
+# You might need to configure these based on your specific NVIDIA driver and CUDA toolkit versions.
+# ENV CUDA_VISIBLE_DEVICES=0
+# ENV NVIDIA_VISIBLE_DEVICES=0
+
+# Define the command to run the application
+# The model path 'vibevoice/VibeVoice-7B' is specified as requested.
+CMD ["python", "-m", "vibevoice_api.server", "--model_path", "vibevoice/VibeVoice-7B", "--port", "8000"]

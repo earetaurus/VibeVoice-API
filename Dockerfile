@@ -3,7 +3,6 @@ FROM pytorch/pytorch:2.1.2-cuda11.8-cudnn8-runtime
 
 # Set the working directory in the container
 WORKDIR /app
-RUN apk add --no-cache git build-base
 
 # Install project dependencies
 RUN pip install --upgrade pip && \
